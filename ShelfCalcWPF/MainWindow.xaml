@@ -5,8 +5,233 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ShelfCalcWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
-    <Grid>
+        Title="Расчет высоты стеллажа" Height="350" Width="800" Background="#FF3F3F46" Foreground="#FFB9C7AC">
+    <Grid x:Name="ForeGrid" Margin="0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions >
+            <ColumnDefinition Width="2.5*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.8*"/>
+            <ColumnDefinition Width="4.2*"/>
+            <ColumnDefinition Width="1.2*"/>
+        </Grid.ColumnDefinitions>
+        <!-- Заголовок -->
+        <Rectangle Fill="#FF2D2D30"
+                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                   Grid.RowSpan="1" Grid.ColumnSpan="5" Grid.Row="0" Grid.Column="0"
+                   Margin="0,0,0,0" Stroke="CornflowerBlue"  />
+        <TextBlock x:Name="Captioning" Grid.RowSpan="1" Grid.ColumnSpan="5" Grid.Row="0" Grid.Column="0"                   
+                   TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                   Text="Расчет минимальной высоты стеллажа" 
+                    Grid.IsSharedSizeScope="True" Foreground="#FFE6AA0B" FontSize="20" TextAlignment="Center"
+                   />
         
+        <!-- Рабочее расстояние между полками -->
+        <Rectangle Fill="#FF2D2D30"
+                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                   Grid.RowSpan="2" Grid.ColumnSpan="1" Grid.Row="1" Grid.Column="0"
+                   Margin="0,0,0,0" Stroke="CornflowerBlue"  />
+        <TextBlock  Grid.RowSpan="2" Grid.ColumnSpan="1" Grid.Row="1" Grid.Column="0"           
+                   TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                   Text="Рабочее расстояние между полками" 
+                    Grid.IsSharedSizeScope="True" Foreground="#FFC7C7C7" FontSize="18" OpacityMask="CornflowerBlue" Margin="3,0,0,0"
+                   />
+        
+        <!-- Количество рабочих полок -->
+        <Rectangle Fill="#FF2D2D30"
+                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                   Grid.RowSpan="2" Grid.ColumnSpan="1" Grid.Row="3" Grid.Column="0"
+                   Margin="0,0,0,0" Stroke="CornflowerBlue"  />
+        <TextBlock  Grid.RowSpan="2" Grid.ColumnSpan="1" Grid.Row="3" Grid.Column="0"
+                   TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Center"
+                   Text="Количество рабочих полок" 
+                    Grid.IsSharedSizeScope="True" Foreground="#FFC7C7C7" FontSize="18" OpacityMask="CornflowerBlue" Margin="3,0,0,0"
+                   />
+        <!-- Минимальное расстояние -->
+        <Rectangle Fill="#FF2D2D30"
+                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                   Grid.RowSpan="2" Grid.ColumnSpan="1" Grid.Row="5" Grid.Column="0"
+                   Margin="0,0,0,0" Stroke="CornflowerBlue"  />
+        <TextBlock  Grid.RowSpan="2" Grid.ColumnSpan="1" Grid.Row="5" Grid.Column="0"
+                    TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Center" 
+        	        Grid.IsSharedSizeScope="True" Foreground="#FFC7C7C7" FontSize="16" OpacityMask="CornflowerBlue" Margin="3,0,0,0" 
+                    Text="Минимальное расстояние от низа стойки до рабочего уровня 1й полки"/>
+        <!-- Область ввода -->
+        <TextBox x:Name="Distance" Grid.RowSpan="2"
+                 Grid.ColumnSpan="1" Grid.Row="1" Grid.Column="2" 
+                 HorizontalAlignment="Stretch"   TextWrapping="Wrap" 
+                 Text="345" VerticalAlignment="Stretch" VerticalContentAlignment="Center" 
+                 HorizontalContentAlignment="Center" BorderBrush="CornflowerBlue" FontSize="18" Background="#FFC3C2C2" FontWeight="Bold" TextChanged="Distance_TextChanged"
+                 />
+        <TextBox x:Name="Amount" Grid.RowSpan="2"
+                 Grid.ColumnSpan="1" Grid.Row="3" Grid.Column="2" 
+                 HorizontalAlignment="Stretch"   TextWrapping="Wrap" 
+                 Text="5" VerticalAlignment="Stretch" VerticalContentAlignment="Center" 
+                 HorizontalContentAlignment="Center" BorderBrush="CornflowerBlue" FontSize="18" Background="#FFC3C2C2" FontWeight="Bold" TextChanged="Amount_TextChanged"
+                 />
+        <TextBox x:Name="Height" Grid.RowSpan="2"
+                 Grid.ColumnSpan="1" Grid.Row="5" Grid.Column="2" 
+                 HorizontalAlignment="Stretch"   TextWrapping="Wrap" 
+                 Text="38" VerticalAlignment="Stretch" VerticalContentAlignment="Center" 
+                 HorizontalContentAlignment="Center" BorderBrush="CornflowerBlue" FontSize="18" Background="#FFC3C2C2" FontWeight="Bold" TextChanged="Height_TextChanged"
+                 />
+        <!-- Высота стойки -->
+        <Rectangle Fill="#FF2D2D30"
+                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                   Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Row="1" Grid.Column="3"
+                   Margin="0,0,0,0" Stroke="CornflowerBlue"  />
+        <TextBlock  Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Row="1" Grid.Column="3"
+                   TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="3,0,0,0"
+                   Text="Высота стойки (стационарный)" 
+                    Grid.IsSharedSizeScope="True" Foreground="#FFC7C7C7" FontSize="18" OpacityMask="CornflowerBlue"
+                   />
+        
+        <!-- Высота передвижного без ф/п -->
+        <Rectangle Fill="#FF2D2D30"
+                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                   Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Row="2" Grid.Column="3"
+                   Margin="0,0,0,0" Stroke="CornflowerBlue"  />
+        <TextBlock  Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Row="2" Grid.Column="3"
+                   TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="3,0,0,0"
+                   Text="Высота передвижного без фальшпола" 
+                    Grid.IsSharedSizeScope="True" Foreground="#FFC7C7C7" FontSize="18" OpacityMask="CornflowerBlue" 
+                   />
+        <!-- Высота передвижного с ф/п -->
+        <Rectangle Fill="#FF2D2D30"
+                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                   Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Row="3" Grid.Column="3"
+                   Margin="0,0,0,0" Stroke="CornflowerBlue"  />
+        <TextBlock  Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Row="3" Grid.Column="3"
+                   TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="3,0,0,0"
+                   Text="Высота передвижного с фальшполом" 
+                    Grid.IsSharedSizeScope="True" Foreground="#FFC7C7C7" FontSize="18" OpacityMask="CornflowerBlue" 
+                   />
+
+        <!-- Высота передвижного на сварной раме -->
+        <Rectangle Fill="#FF2D2D30"
+                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                   Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Row="4" Grid.Column="3" 
+                   Margin="0,0,0,0" Stroke="CornflowerBlue"  />
+        <TextBlock  Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Row="4" Grid.Column="3"
+                   TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="3,0,0,0"
+                   Text="Высота передвижного на сварной раме" 
+                    Grid.IsSharedSizeScope="True" Foreground="#FFC7C7C7" FontSize="18" OpacityMask="CornflowerBlue" 
+                   />
+        <!-- Высота крышки -->
+        <Rectangle Fill="#FF2D2D30"
+                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                   Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Row="5" Grid.Column="3"
+                   Margin="0,0,0,0" Stroke="CornflowerBlue"  />
+        <TextBlock  Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Row="5" Grid.Column="3"
+                   TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="3,0,0,0" 
+                    Grid.IsSharedSizeScope="True" Foreground="#FFC7C7C7" FontSize="18" OpacityMask="CornflowerBlue" 
+                   Text="Высота крышки"/>
+        <!-- Расчетное расстояние между полками -->
+        <Rectangle Fill="#FF2D2D30"
+                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                   Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Row="6" Grid.Column="3"
+                   Margin="0,0,0,0" Stroke="CornflowerBlue"  />
+        <TextBlock  Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Row="6" Grid.Column="3"
+                   TextWrapping="Wrap" HorizontalAlignment="Stretch" VerticalAlignment="Center" Margin="3,0,0,0" 
+                    Grid.IsSharedSizeScope="True" Foreground="#FFC7C7C7" FontSize="18" OpacityMask="CornflowerBlue" 
+                    Text="Расчетное расстояние между полками"/>
+
+
+
+        <!-- Выводимые поля -->
+        <Rectangle Fill="#FF2D2D30"
+                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                   Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Row="1" Grid.Column="4"
+                   Margin="0,0,0,0" Stroke="CornflowerBlue"  />
+        <TextBlock x:Name="StayHeight"  Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Row="1" Grid.Column="4"
+                   TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"
+                   Text="1907" 
+                    Grid.IsSharedSizeScope="True" Foreground="#FFFFE08E" FontSize="20" OpacityMask="CornflowerBlue" Margin="3,0,0,0" TextDecorations="{x:Null}" 
+                   />
+
+        <Rectangle Fill="#FF2D2D30"
+                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                   Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Row="2" Grid.Column="4"
+                   Margin="0,0,0,0" Stroke="CornflowerBlue"  />
+        <TextBlock x:Name="wFloor"  Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Row="2" Grid.Column="4"
+                   TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"
+                   Text="2020" 
+                    Grid.IsSharedSizeScope="True" Foreground="#FFFFE08E" FontSize="20" OpacityMask="CornflowerBlue" Margin="3,0,0,0" TextDecorations="{x:Null}" 
+                   />
+        <Rectangle Fill="#FF2D2D30"
+                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                   Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Row="3" Grid.Column="4"
+                   Margin="0,0,0,0" Stroke="CornflowerBlue"  />
+        <TextBlock x:Name="FalseFloor"  Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Row="3" Grid.Column="4"
+                   TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"
+                   Text="2040" 
+                    Grid.IsSharedSizeScope="True" Foreground="#FFFFE08E" FontSize="20" OpacityMask="CornflowerBlue" Margin="3,0,0,0" TextDecorations="{x:Null}" 
+                   />
+
+        
+
+        <Rectangle Fill="#FF2D2D30"
+                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                   Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Row="4" Grid.Column="4"
+                   Margin="0,0,0,0" Stroke="CornflowerBlue"  />
+        <TextBlock x:Name="Welded"  Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Row="4" Grid.Column="4"
+                   TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"
+                   Text="2090" 
+                    Grid.IsSharedSizeScope="True" Foreground="#FFFFE08E" FontSize="20" OpacityMask="CornflowerBlue" Margin="3,0,0,0" TextDecorations="{x:Null}" 
+                   />
+
+
+
+        <Rectangle Fill="#FF2D2D30"
+                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                   Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Row="5" Grid.Column="4"
+                   Margin="0,0,0,0" Stroke="CornflowerBlue"  />
+        <TextBlock x:Name="CapHeight"  Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Row="5" Grid.Column="4"
+                   
+                   TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"
+                   Text="+6 мм" 
+                    Grid.IsSharedSizeScope="True" Foreground="#FFFFE08E" FontSize="20" OpacityMask="CornflowerBlue" Margin="3,0,0,0" TextDecorations="{x:Null}" 
+                   />
+
+        <Rectangle Fill="#FF2D2D30"
+                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                   Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Row="6" Grid.Column="6"
+                   Margin="0,0,0,0" Stroke="CornflowerBlue"  />
+        <TextBlock x:Name="CalculatedShelfDist"  Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Row="6" Grid.Column="4"
+                   TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"
+                   Text="345" 
+                    Grid.IsSharedSizeScope="True" Foreground="White" FontSize="20" OpacityMask="CornflowerBlue" Margin="3,0,0,0" TextDecorations="{x:Null}" 
+                   />
+
+
+        <!--  Нормализованные значения   -->
+        <Rectangle Fill="#FF2D2D30"
+                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                   Grid.RowSpan="2" Grid.ColumnSpan="1" Grid.Row="1" Grid.Column="1"
+                   Margin="0,0,0,0" Stroke="CornflowerBlue"  />
+        <TextBlock x:Name="WorkShelf"  Grid.RowSpan="2" Grid.ColumnSpan="1" Grid.Row="1" Grid.Column="1"
+                   TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"
+                   Text="345" 
+                    Grid.IsSharedSizeScope="True" Foreground="#FFA6A6A7" FontSize="20" OpacityMask="CornflowerBlue" Margin="3,0,0,0" TextDecorations="{x:Null}" 
+                   />
+
+        <Rectangle Fill="#FF2D2D30"
+                   HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                   Grid.RowSpan="2" Grid.ColumnSpan="1" Grid.Row="5" Grid.Column="1"
+                   Margin="0,0,0,0" Stroke="CornflowerBlue"  />
+        <TextBlock x:Name="BotomCal"  Grid.RowSpan="2" Grid.ColumnSpan="1" Grid.Row="5" Grid.Column="1"
+                   TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"
+                   Text="38" 
+                    Grid.IsSharedSizeScope="True" Foreground="#FFA6A6A7" FontSize="20" OpacityMask="CornflowerBlue" Margin="3,0,0,0" TextDecorations="{x:Null}" 
+                   />
     </Grid>
 </Window>
