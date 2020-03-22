@@ -8,6 +8,7 @@
         Title="Расчет высоты стеллажа" Height="350" Width="800" Background="#FF3F3F46" Foreground="#FFB9C7AC">
     <Grid x:Name="ForeGrid" Margin="0">
         <Grid.RowDefinitions>
+            
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
